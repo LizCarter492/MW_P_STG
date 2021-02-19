@@ -9,7 +9,7 @@ library(data.table)
 library(RColorBrewer)
 library(viridis)
 library(colorRamps)
-setwd("D:/DELL_PHD/Box Sync/AFRI_Aexam/R scripts")
+#setwd("D:/DELL_PHD/Box Sync/AFRI_Aexam/R scripts") 
 source("filled.contour3.R")
 source("filled.legend.R")
 
