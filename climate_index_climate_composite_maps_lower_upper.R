@@ -4,7 +4,6 @@ library(ncdf4)
 library(fields)
 library(maps)
 library(raster)
-setwd("C:/Users/ekc76/Box Sync/AFRI_Aexam/R scripts")
 source("filled.contour3.R")
 source("filled.legend.R")
 
@@ -24,17 +23,17 @@ source("filled.legend.R")
 #ltm prefix indicates long-term monthly mean
 
 #(u,v); (gu, gv); (agu, agv): load total, gesotrophic, and ageostrophic wind####
-gUV<-nc_open("E:/NASH_subseasonal_prediction/geos_uv_1000_600mB.nc")
+gUV<-nc_open("~/data/geos_uv_1000_600mB.nc")
 gu<-ncvar_get(gUV, varid="u_g")
 gv<-ncvar_get(gUV, varid="v_g")
 nc_close(gUV)
 
-unc<-nc_open("E:/NASH_subseasonal_prediction/uwnd.mon.mean.nc")
+unc<-nc_open("~/data/uwnd.mon.mean.nc")
 u<-ncvar_get(unc, varid="uwnd")
 u<-u[,,1:5,]
 nc_close(unc)
 
-vnc<-nc_open("E:/NASH_subseasonal_prediction/vwnd.mon.mean.nc")
+vnc<-nc_open("~/data/vwnd.mon.mean.nc")
 v<-ncvar_get(vnc, varid="vwnd")
 v<-v[,,1:5,]
 nc_close(vnc)
@@ -66,8 +65,7 @@ for(j in 1:12){
 
 
 #(P): load GPCC precipitation####
-setwd("E:/NASH_subseasonal_prediction/")
-P.nc<-nc_open("precip.comb.v2018to2016-v6monitorafter.total.nc")
+P.nc<-nc_open("~/data/precip.comb.v2018to2016-v6monitorafter.total.nc")
 plat<-ncvar_get(P.nc, "lat")
 plon<-ncvar_get(P.nc, "lon")
 ptime<-ncvar_get(P.nc, "time")
@@ -78,8 +76,7 @@ p<-p[,,year(ptime)<2018]
 nc_close(P.nc)
 
 #(z): load geopotential height#####
-setwd("E:/NASH_subseasonal_prediction/")
-Z.nc<-nc_open("hgt.mon.mean.nc")
+Z.nc<-nc_open("~/data/hgt.mon.mean.nc")
 lat<-ncvar_get(Z.nc, "lat")
 lon<-ncvar_get(Z.nc, "lon")
 lev<-ncvar_get(Z.nc, "level")
@@ -161,8 +158,7 @@ for(j in 1:12){
 
 
 #(q): load specific humidity####
-setwd("E:/NASH_subseasonal_prediction/")
-Q.nc<-nc_open("shum.mon.mean.nc")
+Q.nc<-nc_open("~/data/shum.mon.mean.nc")
 lat<-ncvar_get(Q.nc, "lat")
 lon<-ncvar_get(Q.nc, "lon")
 q<-ncvar_get(Q.nc, "shum")
@@ -180,10 +176,7 @@ for(j in 1:12){
 
 
 #(o): load omega####
-#setwd("E:/NASH_subseasonal_prediction/")
-setwd("G:/DELL_PHD/E/NASH_subseasonal_prediction/")
-
-O.nc<-nc_open("omega.mon.mean.nc")
+O.nc<-nc_open("~/data/omega.mon.mean.nc")
 lat<-ncvar_get(O.nc, "lat")
 lon<-ncvar_get(O.nc, "lon")
 o<-ncvar_get(O.nc, "omega")
@@ -202,7 +195,7 @@ for(j in 1:12){
 
 #load climate variables and convert to factors####
 library(lubridate)
-CI<-read.table("C:/Users/ekc76/Box Sync/MW_seasonal_warm_season_precip_forecast/data/standardized_climate_indices.txt", header=T)
+CI<-read.table("standardized_climate_indices.txt", header=T)
 time<-seq.Date(as.Date("01-01-1948", format="%m-%d-%Y"), as.Date("12-31-2017", format="%m-%d-%Y"), by="month")
 mth<-month(time)
 yr<-year(time)
@@ -263,7 +256,7 @@ for (i in 3:7){
   for(j in names(dat)){
     #Map 1: JJA PJS, NASH anomaly (dark contour) mean position (gray contour)
     # MFD (color), geostrophic wind absolute (dark color when above average, gray when average/below average)
-   
+    # change this filepath to a local directory on your machine
      pdf(paste("C:/Users/ekc76/Box Sync/MW_seasonal_warm_season_precip_forecast/images/climate_variables/climate_comp_maps/lag", lagv, "/ageostrophic/ageostrophic_abs_mfd_col_"
                ,j,"_month",i,"_lag",lagv,".pdf",sep=""),
         width=14, height=5)
